@@ -14,6 +14,20 @@ class App extends Component {
     this.getMarkdownText = this.getMarkdownText.bind( this );
   }
 
+  componentDidMount() {
+    const data = localStorage.getItem( 'markdownData' );
+
+    if( data ) {
+      this.setState({ content: data });
+    } else {
+      this.setState({ content: sampleText });
+    }
+  }
+
+  componentDidUpdate() {
+    localStorage.setItem( 'markdownData', this.state.content );
+  }
+
   handleUpdate = ( event ) => {
     const content = event.target.value;
     this.setState({ content })
